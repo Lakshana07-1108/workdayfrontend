@@ -12,18 +12,29 @@ import {
   BarChart3,
   Settings,
   Home,
-  RotateCcw
+  RotateCcw,
+  User,
+  LogOut
 } from 'lucide-react';
 import { cn } from '../components/ui/utils';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../components/ui/dropdown-menu';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
 
   const getMenuItems = () => {
@@ -82,10 +93,12 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
       {/* Sidebar */}
       <div className="w-64 bg-sidebar border-r border-sidebar-border">
         <div className="p-6">
-          <h2 className="text-lg font-semibold text-sidebar-foreground">
-            WorkForce Pro
-          </h2>
-          <p className="text-sm text-sidebar-foreground/70">
+          <Link to="/" className="block">
+            <h2 className="text-lg font-semibold text-sidebar-foreground hover:text-primary transition-colors">
+              WorkForce Pro
+            </h2>
+          </Link>
+          <p className="text-sm text-sidebar-foreground/70 mt-1">
             {user?.name} • {user?.role}
           </p>
         </div>
@@ -122,6 +135,54 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
             })}
           </div>
         </nav>
+
+        {/* User Profile Section */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-sidebar-border">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="w-full justify-start h-12 px-3">
+                <Avatar className="h-8 w-8 mr-3">
+                  <AvatarImage src="" />
+                  <AvatarFallback>
+                    {user?.name?.split(' ').map(n => n[0]).join('') || 'U'}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 text-left">
+                  <div className="text-sm font-medium">{user?.name}</div>
+                  <div className="text-xs text-muted-foreground">{user?.email}</div>
+                </div>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">{user?.name}</p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {user?.email}
+                  </p>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link to="/dashboard/profile">
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/dashboard/settings">
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={logout}>
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Log out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       {/* Main Content */}

@@ -23,6 +23,8 @@ import { ReportsPage } from './pages/ReportsPage';
 import { TeamAttendancePage } from './pages/TeamAttendancePage';
 import { ShiftManagementPage } from './pages/ShiftManagementPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { HRManagementPage } from './pages/HRManagementPage';
+import { ProfilePage } from './pages/ProfilePage';
 
 const AboutPage = () => (
   <div className="min-h-screen bg-background">
@@ -68,6 +70,13 @@ export default function App() {
               </>
             } />
             
+            <Route path="/products/hr-management" element={
+              <>
+                <Navbar />
+                <HRManagementPage />
+              </>
+            } />
+            
             <Route path="/about" element={
               <>
                 <Navbar />
@@ -89,6 +98,15 @@ export default function App() {
               <ProtectedRoute>
                 <DashboardLayout>
                   <Dashboard />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            
+            {/* Profile route */}
+            <Route path="/dashboard/profile" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <ProfilePage />
                 </DashboardLayout>
               </ProtectedRoute>
             } />

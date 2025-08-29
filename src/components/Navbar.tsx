@@ -42,15 +42,26 @@ export const Navbar: React.FC = () => {
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>Products</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <div className="w-48 p-2">
+                      <div className="w-64 p-2">
                         <NavigationMenuLink asChild>
                           <Link
                             to="/products/workforce-management"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground hover:scale-105"
                           >
                             <div className="text-sm font-medium leading-none">Workforce Management</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Complete employee management solution
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/products/hr-management"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground hover:scale-105"
+                          >
+                            <div className="text-sm font-medium leading-none">HR Management</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Recruitment, performance, and engagement tools
                             </p>
                           </Link>
                         </NavigationMenuLink>
